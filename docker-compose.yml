@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: geps-jupyter
+    volumes:
+      - ./:/app
+    ports:
+      - "8888:8888"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    restart: unless-stopped
+    command: jupyter
+
+  jupyterlab:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: geps-jupyterlab
+    volumes:
+      - ./:/app
+    ports:
+      - "8889:8888"
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    restart: unless-stopped
+    command: jupyterlab
+
+  python:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: geps-python
+    volumes:
+      - ./:/app
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    command: python
+
+  bash:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: geps-bash
+    volumes:
+      - ./:/app
+    stdin_open: true
+    tty: true
+    restart: unless-stopped
+    command: bash
